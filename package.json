@@ -1,0 +1,24 @@
+{
+  "name": "sequalize-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:server": "nodemon ./src/server.js  --exec babel-node --presets env"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bavenka/Sequalize-Express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "nodemon": "^1.15.0"
+  }
+}
