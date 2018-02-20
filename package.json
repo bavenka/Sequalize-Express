@@ -2,7 +2,6 @@
   "name": "sequalize-express",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev:server": "nodemon ./src/server.js  --exec babel-node --presets env"
   },
@@ -14,7 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.33.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
