@@ -1,0 +1,4 @@
+export const ERROR_TYPES = {
+    "DEFAULT": "SERVER_ERROR",
+    "EMAIL_EXISTS": "EMAIL_EXISTS_ERROR",
+};

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev:server": "nodemon ./src/server.js  --exec babel-node --presets env"
+    "dev:server": "nodemon ./src/server.js  --exec babel-node --presets env",
+    "debug": "babel-node --presets env --inspect-brk ./src/server.js"
   },
   "repository": {
     "type": "git",

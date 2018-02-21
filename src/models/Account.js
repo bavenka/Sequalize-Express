@@ -1,11 +1,8 @@
 import connect from '../connect';
 
-const {
-    sequelize,
-    Sequelize
-} = connect;
+const { sequelize, Sequelize } = connect;
 
-const User = sequelize.define('user', {
+const Account = sequelize.define('account', {
     name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -13,12 +10,10 @@ const User = sequelize.define('user', {
     email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
     },
-    password: {
+    providerId: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
     },
-}, { timestamps: false });   
-
-export default User;
+});
