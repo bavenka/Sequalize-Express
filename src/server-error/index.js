@@ -1,11 +1,29 @@
 import { ERROR_TYPES } from './constants'
 
-export default class ServerError extends Error {
-    constructor(message, type, status) {
-        super(message);
-        this.name = this.constructor.name;
-        Error.captureStackTrace(this, this.constructor);
-        this.type = type || ERROR_TYPES.DEFAULT;
-        this.status = status || 500;
+function ErrorBase(type, status, message, fileName, lineNumber) {
+    var instance = new Error(message, fileName, lineNumber);
+    instance.type = type || ERROR_TYPES.DEFAULT;
+    instance.status = status || 500;
+    Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+    if (Error.captureStackTrace) {
+        Error.captureStackTrace(instance, ErrorBase);
     }
+    return instance;
 }
+
+ErrorBase.prototype = Object.create(Error.prototype, {
+    constructor: {
+        value: Error,
+        enumerable: false,
+        writable: true,
+        configurable: true
+    }
+});
+
+if (Object.setPrototypeOf){
+    Object.setPrototypeOf(ErrorBase, Error);
+} else {
+    ErrorBase.__proto__ = Error;
+}
+
+export default ErrorBase;
