@@ -6,7 +6,16 @@ export const saveUser = (req, res, next) => {
         .createUser(req.body)
         .then(data => res.status(201).json(data))
         .catch(e => {
-            console.log(e);
+            next(e)
+        })
+};
+
+export const updateUser = (req, res, next) => {
+    const userId = req.params.userId;
+    userService
+        .editUser(req.body, userId)
+        .then(([rowsUpdate, [data]]) => data ? res.status(200).json(data) : res.status(204).end())
+        .catch(e => {
             next(e)
         })
 };
