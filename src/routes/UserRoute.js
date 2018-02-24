@@ -11,4 +11,6 @@ userRoute.post('/create', validate(userValidator.createUser), userController.sav
 
 userRoute.put('/:userId/edit', validate(userValidator.editUser), userController.updateUser);
 
+userRoute.delete('/:userId/delete', validate(userValidator.deleteUser), userController.deleteUser);
+
 export default userRoute;

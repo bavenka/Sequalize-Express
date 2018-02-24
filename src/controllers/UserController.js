@@ -19,3 +19,13 @@ export const updateUser = (req, res, next) => {
             next(e)
         })
 };
+
+export const deleteUser = (req, res, next) => {
+    const userId = req.params.userId;
+    userService
+        .deleteUser(userId)
+        .then(data => res.status(data ? 200 : 204).end())
+        .catch(e => {
+            next(e)
+        })
+};
