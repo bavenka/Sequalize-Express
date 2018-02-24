@@ -22,5 +22,11 @@ export default {
     params: {
       userId: Joi.number().integer().min(1).required(),
     }
+  },
+  authUser: {
+    body: {
+      email: Joi.string().email().required(),
+      password: Joi.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/).required(),
+    }
   }
 };

@@ -6,6 +6,7 @@ import {ERROR_TYPES} from './server-error/constants';
 
 import connect from '../src/connect';
 
+import authRoute from './routes/AuthRoute';
 import userRoute from './routes/UserRoute';
 import ErrorBase from './server-error';
 
@@ -13,6 +14,7 @@ const {sequelize} = connect;
 const app = express();
 
 app.use(bodyParser.json());
+app.use('/', authRoute);
 app.use('/users', userRoute);
 
 app.use((err, req, res, next) => {
