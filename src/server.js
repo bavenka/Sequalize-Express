@@ -1,6 +1,7 @@
 import express from 'express';
 import { ValidationError } from 'express-validation';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import {ERROR_TYPES} from './server-error/constants';
 
@@ -8,14 +9,18 @@ import connect from '../src/connect';
 
 import authRoute from './routes/AuthRoute';
 import userRoute from './routes/UserRoute';
+import categoryRoute from './routes/CategoryRoute';
+
 import ErrorBase from './server-error';
 
 const {sequelize} = connect;
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/', authRoute);
 app.use('/users', userRoute);
+app.use('/categories', categoryRoute);
 
 app.use((err, req, res, next) => {
     if (err instanceof ErrorBase) {
