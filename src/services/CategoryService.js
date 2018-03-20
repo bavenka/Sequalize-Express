@@ -1,5 +1,6 @@
 import connect from '../connect';
 import Category from '../models/Category';
+import Product from '../models/Product';
 
 import ErrorBase from '../server-error';
 import {
@@ -22,3 +23,11 @@ export const createCategory = (category) => {
 };
 
 export const getRootCategories = () => Category.findAll();
+
+export const getProductsByCategoryId = (categoryId) => {
+    return Product.findAll({
+        where: {
+            categoryId,
+        }
+    })
+}

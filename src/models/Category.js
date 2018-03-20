@@ -1,3 +1,4 @@
+import Product from './Product';
 import connect from '../connect';
 
 const {
@@ -12,5 +13,7 @@ const Category = sequelize.define('category', {
         unique: true,
     },
 }, { timestamps: false });   
+
+Category.hasMany(Product, {as: 'Products'})
 
 export default Category;

@@ -1,7 +1,14 @@
 import Joi from 'joi';
 
-export const createCategory = {
-    body: {
-        name: Joi.string().required(),
+export default {
+    createCategory: {
+        body: {
+            name: Joi.string().required(),
+        }
+    },
+    getProductsByCategoryId: {
+        params: {
+            categoryId: Joi.number().integer().min(1).required(),
+        }
     },
 };

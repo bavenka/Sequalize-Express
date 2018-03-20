@@ -15,3 +15,13 @@ export const getRootCategories = (req, res, next) => {
             next(e)
         })
 };
+
+export const getProductsByCategoryId = (req, res, next) => {
+    const categoryId = req.params.categoryId;
+    productService
+        .getProductsByCategoryId(categoryId)
+        .then(data => res.status(200).json(data))
+        .catch(e => {
+            next(e)
+        })
+};

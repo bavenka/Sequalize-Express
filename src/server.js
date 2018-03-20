@@ -10,6 +10,7 @@ import connect from '../src/connect';
 import authRoute from './routes/AuthRoute';
 import userRoute from './routes/UserRoute';
 import categoryRoute from './routes/CategoryRoute';
+import productRoute from './routes/ProductRoute';
 
 import ErrorBase from './server-error';
 
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 app.use('/', authRoute);
 app.use('/users', userRoute);
 app.use('/categories', categoryRoute);
+app.use('/products', productRoute);
 
 app.use((err, req, res, next) => {
     if (err instanceof ErrorBase) {
