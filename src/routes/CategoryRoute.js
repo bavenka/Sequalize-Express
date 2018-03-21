@@ -1,7 +1,7 @@
 import express from 'express';
 import validate from 'express-validation';
 
-import * as categoryValidator from '../validators/CategoryValidator';
+import categoryValidator from '../validators/CategoryValidator';
 
 import * as categoryController from '../controllers/CategoryController';
 
