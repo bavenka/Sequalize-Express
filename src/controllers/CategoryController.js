@@ -18,7 +18,7 @@ export const getRootCategories = (req, res, next) => {
 
 export const getProductsByCategoryId = (req, res, next) => {
     const categoryId = req.params.categoryId;
-    productService
+    categoryService
         .getProductsByCategoryId(categoryId)
         .then(data => res.status(200).json(data))
         .catch(e => {
