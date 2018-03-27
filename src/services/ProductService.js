@@ -45,7 +45,7 @@ export const deleteProduct = (id) => {
     })
 }
 
-export const getAllProducts = (limit, offset) => Product.findAll({
+export const getAllProducts = (offset, limit) => Product.findAll({
     offset,
     limit
 });

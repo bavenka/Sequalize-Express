@@ -31,8 +31,9 @@ export const deleteProduct = (req, res, next) => {
 };
 
 export const getAllProducts = (req, res, next) => {
+    const { offset, limit } = req.query;
     productService
-        .getAllProducts()
+        .getAllProducts(offset, limit)
         .then(data => res.status(200).json(data))
         .catch(e => {
             next(e)
