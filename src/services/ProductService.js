@@ -1,4 +1,4 @@
-import connect from '../connect';
+import connect from '../database/connect';
 import Product from '../models/Product';
 
 import ErrorBase from '../server-error';

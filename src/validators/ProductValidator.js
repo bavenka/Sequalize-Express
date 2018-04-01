@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { ProductType } from '../models/enums/ProductType';
 
 export default {
     createProduct: {
@@ -7,6 +8,7 @@ export default {
             price: Joi.number().required(),
             image: Joi.string().required(),
             description: Joi.string().required(),
+            status: Joi.string().valid(...Object.values(ProductType)),
         }
     },
     editProduct: {
@@ -18,6 +20,7 @@ export default {
             price: Joi.number().required(),
             image: Joi.string().required(),
             description: Joi.string().required(),
+            status: Joi.string().valid(...Object.values(ProductType)),
         }
     },
     deleteProduct: {

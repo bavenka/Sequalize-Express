@@ -1,4 +1,5 @@
-import connect from '../connect';
+import connect from '../database/connect';
+import Role from './Role';
 
 const {
     sequelize,
@@ -19,6 +20,10 @@ const User = sequelize.define('user', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-}, { timestamps: false });   
+}, {
+    timestamps: false
+});
+
+User.belongsToMany(Role, { as: 'Roles', through:'user_role', timestamps: false });
 
 export default User;

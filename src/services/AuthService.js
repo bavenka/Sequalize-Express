@@ -1,4 +1,4 @@
-import connect from '../connect';
+import connect from '../database/connect';
 import User from '../models/User';
 import {
     createUser

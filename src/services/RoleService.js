@@ -1,5 +1,5 @@
 import connect from '../database/connect';
-import User from '../models/User';
+import Role from '../models/Role';
 
 import ErrorBase from '../server-error';
 import {
@@ -10,35 +10,35 @@ const {
     Sequelize
 } = connect;
 
-export const createUser = (user) => {
-        return User.create(user)
+export const createRole = (role) => {
+        return Role.create(role)
         .catch(e => {
             if (e.name === 'SequelizeUniqueConstraintError') {
-                throw new ErrorBase(ERROR_TYPES.EMAIL_EXISTS, 409, `User with email = ${user.email} already exists.`);
+                throw new ErrorBase(ERROR_TYPES.ROLE_EXISTS, 409, `Role with name = ${role.name} already exists.`);
             } else {
                 throw e;
             }
         })
 };
 
-export const editUser = (user, userId) => {
-        return User.update(user, {
+export const editRole = (role, roleId) => {
+        return Role.update(role, {
             returning: true,
             where: {
-                id: userId
+                id: roleId
             }
         })
         .catch(e => {
             if (e.name === 'SequelizeUniqueConstraintError') {
-                throw new ErrorBase(ERROR_TYPES.EMAIL_EXISTS, 409, `User with email = ${user.email} already exists.`);
+                throw new ErrorBase(ERROR_TYPES.ROLE_EXISTS, 409, `Role with name = ${role.name} already exists.`);
             } else {
                 throw e;
             }
         })
 };
 
-export const deleteUser = (id) => {
-        return User.destroy({
+export const deleteRole = (id) => {
+        return Role.destroy({
             where: {
                 id
             }

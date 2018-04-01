@@ -1,4 +1,5 @@
-import connect from '../connect';
+import connect from '../database/connect';
+import { ProductType } from './enums/ProductType';
 
 const {
     sequelize,
@@ -22,6 +23,11 @@ const Product = sequelize.define('product', {
     description: {
         type: Sequelize.TEXT,
         allowNull: false,
+    },
+    status: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: ProductType.NEW,
     }
 }, { timestamps: false });   
 

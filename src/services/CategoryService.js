@@ -1,4 +1,4 @@
-import connect from '../connect';
+import connect from '../database/connect';
 import Category from '../models/Category';
 import Product from '../models/Product';
 

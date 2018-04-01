@@ -1,5 +1,5 @@
 import Product from './Product';
-import connect from '../connect';
+import connect from '../database/connect';
 
 const {
     sequelize,
