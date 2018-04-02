@@ -11,7 +11,7 @@ const {
 } = connect;
 
 export const createRole = (role) => {
-        return Role.create(role)
+    return Role.create(role)
         .catch(e => {
             if (e.name === 'SequelizeUniqueConstraintError') {
                 throw new ErrorBase(ERROR_TYPES.ROLE_EXISTS, 409, `Role with name = ${role.name} already exists.`);
@@ -22,7 +22,7 @@ export const createRole = (role) => {
 };
 
 export const editRole = (role, roleId) => {
-        return Role.update(role, {
+    return Role.update(role, {
             returning: true,
             where: {
                 id: roleId
@@ -38,9 +38,18 @@ export const editRole = (role, roleId) => {
 };
 
 export const deleteRole = (id) => {
-        return Role.destroy({
-            where: {
-                id
-            }
-        })
+    return Role.destroy({
+        where: {
+            id
+        }
+    })
+}
+
+export const getRoleByName = (name, transaction) => {
+    return Role.findOne({
+        where: {
+            name
+        },
+        transaction,
+    })
 }

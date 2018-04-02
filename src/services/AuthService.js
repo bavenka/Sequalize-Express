@@ -1,8 +1,12 @@
 import connect from '../database/connect';
+import { RoleType } from '../models/enums/RoleType';
 import User from '../models/User';
 import {
     createUser
 } from '../services/UserService';
+import {
+    getRoleByName,
+} from '../services/RoleService';
 import {
     createToken
 } from '../services/TokenService';
@@ -17,24 +21,33 @@ import {
 } from '../server-error/constants';
 
 const {
-    Sequelize
+    Sequelize,
+    sequelize
 } = connect;
 
 export const signup = async (user) => {
+    const transaction = await sequelize.transaction();
     try {
         const {
             password
         } = user;
+
+        const role = await getRoleByName(RoleType.USER, transaction);
         user.password = await hash(password);
 
-        const existingUser = await createUser(user);
+        const existingUser = await createUser(user, transaction);
+
+        await existingUser.addRole(role, { transaction });
 
         const token = await createToken(existingUser);
+
+        await transaction.commit();
 
         return {
             token
         };
     } catch (e) {
+        await transaction.rollback();
         throw e;
     }
 };
