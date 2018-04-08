@@ -43,7 +43,9 @@ export const signup = async (user) => {
             transaction
         });
 
-        const userRoles = await existingUser.addRole(role, { transaction });
+        const userRoles = await existingUser.addRole(role, {
+            transaction
+        });
 
 
         const token = await signToken(existingUser, userRoles);
@@ -66,7 +68,7 @@ export const login = async (email, password) => {
             where: {
                 email
             },
-          transaction,
+            transaction,
         });
 
         if (!existingUser) {
@@ -82,7 +84,9 @@ export const login = async (email, password) => {
             throw new ErrorBase(ERROR_TYPES.AUTH_ERROR, 401, 'Invalid credentials.');
         }
 
-        const userRoles = await existingUser.getRoles({transaction});
+        const userRoles = await existingUser.getRoles({
+            transaction
+        });
 
         const token = await signToken(existingUser, userRoles);
 
@@ -98,22 +102,31 @@ export const login = async (email, password) => {
 };
 
 export const isUserExists = async (email) => {
+    const transaction = await sequelize.transaction();
     try {
         const existingUser = await User.findOne({
             where: {
                 email
-            }
+            },
+            transaction,
         })
         let token = null;
         if (existingUser) {
-            token = createToken(existingUser);
+            const userRoles = await existingUser.getRoles({
+                transaction
+            });
+            token = signToken(existingUser, userRoles);
             return {
                 token
             };
         }
-        return { token };
+        await transaction.commit();
 
+        return {
+            token
+        };
     } catch (e) {
+        await transaction.rollback();
         throw e;
     }
 }
