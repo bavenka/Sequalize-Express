@@ -10,7 +10,7 @@ import {
     getRoleByName,
 } from '../services/RoleService';
 import {
-    createToken
+    signToken
 } from '../services/TokenService';
 
 import {
@@ -43,7 +43,10 @@ export const signup = async (user) => {
             transaction
         });
 
-        const token = await createToken(existingUser);
+        const userRoles = await existingUser.addRole(role, { transaction });
+
+
+        const token = await signToken(existingUser, userRoles);
 
         await transaction.commit();
 
@@ -57,12 +60,14 @@ export const signup = async (user) => {
 };
 
 export const login = async (email, password) => {
+    const transaction = await sequelize.transaction();
     try {
         const existingUser = await User.findOne({
             where: {
                 email
-            }
-        })
+            },
+          transaction,
+        });
 
         if (!existingUser) {
             throw new ErrorBase(ERROR_TYPES.AUTH_ERROR, 401, 'Invalid credentials.');
@@ -77,11 +82,17 @@ export const login = async (email, password) => {
             throw new ErrorBase(ERROR_TYPES.AUTH_ERROR, 401, 'Invalid credentials.');
         }
 
-        const token = createToken(existingUser);
+        const userRoles = await existingUser.getRoles({transaction});
+
+        const token = await signToken(existingUser, userRoles);
+
+        await transaction.commit();
+
         return {
             token
         };
     } catch (e) {
+        await transaction.rollback();
         throw e;
     }
 };
