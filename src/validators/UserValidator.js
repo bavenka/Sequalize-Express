@@ -23,10 +23,15 @@ export default {
       userId: Joi.number().integer().min(1).required(),
     }
   },
+  isUserExists: {
+    params: {
+      email: Joi.string().required(),
+    }
+  },
   authUser: {
     body: {
-      email: Joi.string().email().required(),
-      password: Joi.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/).required(),
+      email: Joi.string().required(),
+      password: Joi.string().required(),
     }
   }
 };

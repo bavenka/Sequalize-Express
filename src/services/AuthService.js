@@ -1,5 +1,7 @@
 import connect from '../database/connect';
-import { RoleType } from '../models/enums/RoleType';
+import {
+    RoleType
+} from '../models/enums/RoleType';
 import User from '../models/User';
 import {
     createUser
@@ -37,7 +39,9 @@ export const signup = async (user) => {
 
         const existingUser = await createUser(user, transaction);
 
-        await existingUser.addRole(role, { transaction });
+        await existingUser.addRole(role, {
+            transaction
+        });
 
         const token = await createToken(existingUser);
 
@@ -81,3 +85,24 @@ export const login = async (email, password) => {
         throw e;
     }
 };
+
+export const isUserExists = async (email) => {
+    try {
+        const existingUser = await User.findOne({
+            where: {
+                email
+            }
+        })
+        let token = null;
+        if (existingUser) {
+            token = createToken(existingUser);
+            return {
+                token
+            };
+        }
+        return { token };
+
+    } catch (e) {
+        throw e;
+    }
+}

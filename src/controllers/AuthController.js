@@ -15,3 +15,11 @@ export const authenticate = (req, res, next) => {
         .then(data => res.status(200).json(data))
         .catch(e => next(e))
 };
+
+export const isExists = (req, res, next) => {
+    const userEmail = req.params.email;
+    authService
+        .isUserExists(userEmail)
+        .then(data => res.status(200).json(data))
+        .catch(e => next(e))
+};
