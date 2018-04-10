@@ -18,8 +18,9 @@ export const getRootCategories = (req, res, next) => {
 
 export const getProductsByCategoryId = (req, res, next) => {
     const categoryId = req.params.categoryId;
+    const { offset, limit } = req.query;
     categoryService
-        .getProductsByCategoryId(categoryId)
+        .getProductsByCategoryId(categoryId, offset, limit)
         .then(data => res.status(200).json(data))
         .catch(e => {
             next(e)
