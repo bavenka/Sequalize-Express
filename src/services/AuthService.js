@@ -43,12 +43,8 @@ export const signup = async (user) => {
             transaction
         });
 
-        const userRoles = await existingUser.addRole(role, {
-            transaction
-        });
 
-
-        const token = await signToken(existingUser, userRoles);
+        const token = await signToken(existingUser, [role]);
 
         await transaction.commit();
 

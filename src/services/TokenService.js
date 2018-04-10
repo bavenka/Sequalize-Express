@@ -11,7 +11,11 @@ export const signToken = (user, roles) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        roles,
+        roles: roles.map(role => ({
+          id: role.id,
+          name: role.name,
+          permissions: role.permissions,
+        })),
     }, secret, options);
 };
 
