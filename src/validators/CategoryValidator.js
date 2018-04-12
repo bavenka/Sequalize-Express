@@ -6,9 +6,9 @@ export default {
             name: Joi.string().required(),
         }
     },
-    getProductsByCategoryId: {
+    getProductsByCategoryName: {
         params: {
-            categoryId: Joi.number().integer().min(1).required(),
+            categoryName: Joi.string().required(),
         }
     },
 };

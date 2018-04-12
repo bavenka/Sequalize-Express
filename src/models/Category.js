@@ -15,5 +15,6 @@ const Category = sequelize.define('category', {
 }, { timestamps: false });   
 
 Category.hasMany(Product, {as: 'Products'})
+Product.belongsTo(Category);
 
 export default Category;

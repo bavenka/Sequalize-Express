@@ -24,12 +24,14 @@ export const createCategory = (category) => {
 
 export const getRootCategories = () => Category.findAll();
 
-export const getProductsByCategoryId = (categoryId, offset, limit) => {
-  return Product.findAndCountAll({
-    where: {
-      categoryId,
-    },
-    offset,
+export const getProductsByCategoryName = (name, offset, limit) =>
+  Product.findAndCountAll({
+    include: [{
+      model: Category,
+      where: {
+        name,
+      }
+    }],
     limit,
+    offset,
   })
-}

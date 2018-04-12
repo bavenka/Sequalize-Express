@@ -16,11 +16,11 @@ export const getRootCategories = (req, res, next) => {
         })
 };
 
-export const getProductsByCategoryId = (req, res, next) => {
-    const categoryId = req.params.categoryId;
+export const getProductsByCategoryName = (req, res, next) => {
+    const categoryName = req.params.categoryName;
     const { offset, limit } = req.query;
     categoryService
-        .getProductsByCategoryId(categoryId, offset, limit)
+        .getProductsByCategoryName(categoryName, offset, limit)
         .then(data => res.status(200).json(data))
         .catch(e => {
             next(e)
