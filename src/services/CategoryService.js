@@ -34,4 +34,28 @@ export const getProductsByCategoryName = (name, offset, limit) =>
     }],
     limit,
     offset,
+  });
+
+export const editCategory = (category, categoryId) => {
+  return Category.update(category, {
+    returning: true,
+    where: {
+      id: categoryId
+    }
   })
+    .catch(e => {
+      if (e.name === 'SequelizeUniqueConstraintError') {
+        throw new ErrorBase(ERROR_TYPES.CATEGORY_EXISTS, 409, `Category with name = ${category.name} already exists.`);
+      } else {
+        throw e;
+      }
+    })
+};
+
+export const deleteCategory = (id) => {
+  return Category.destroy({
+    where: {
+      id
+    }
+  })
+};
