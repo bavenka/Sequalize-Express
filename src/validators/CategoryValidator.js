@@ -4,7 +4,6 @@ export default {
   createCategory: {
     body: {
       name: Joi.string().required(),
-      order: Joi.number().integer().required(),
     }
   },
   getProductsByCategoryName: {
@@ -18,7 +17,6 @@ export default {
     },
     body: {
       name: Joi.string().required(),
-      order: Joi.number().integer().required(),
     }
   },
   deleteCategory: {
