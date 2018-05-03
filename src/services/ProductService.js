@@ -16,11 +16,21 @@ export const createProduct = async (product) => {
   try {
 
     let category = null;
+
     let {categoryName, ...existingProduct} = product;
 
     const transaction = await sequelize.transaction();
 
+    let createdProduct = await Product.create(
+      existingProduct,
+      {transaction},
+    );
+
+
     if (categoryName === 'all') {
+      await transaction.commit();
+      return createdProduct;
+    } else {
       category = await Category.findOne({
         where: {
           name: categoryName,
@@ -31,14 +41,6 @@ export const createProduct = async (product) => {
       if (!category) {
         throw new ErrorBase(ERROR_TYPES.CATEGORY_EXISTS, 409, `Category with name = ${category.name} is not exists.`);
       }
-    }
-
-    let createdProduct = await Product.create(
-      existingProduct,
-      {transaction},
-    );
-
-    if (category) {
       createdProduct = await category.addProduct(createdProduct, {
         transaction
       });
