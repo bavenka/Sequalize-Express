@@ -13,6 +13,7 @@ import userRoute from './routes/UserRoute';
 import roleRoute from './routes/RoleRoute';
 import categoryRoute from './routes/CategoryRoute';
 import productRoute from './routes/ProductRoute';
+import reservationRoute from './routes/ReservationRoute';
 
 import ErrorBase from './server-error';
 
@@ -26,6 +27,7 @@ app.use('/users', userRoute);
 app.use('/roles', roleRoute);
 app.use('/categories', categoryRoute);
 app.use('/products', productRoute);
+app.use('/reservation', reservationRoute);
 
 app.use((err, req, res, next) => {
     if (err instanceof ErrorBase) {
