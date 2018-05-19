@@ -9,6 +9,7 @@ import { verifyToken  } from '../services/TokenService';
 import { verifyRole  } from '../services/RoleService';
 import * as userController from '../controllers/UserController';
 import * as reservationController from '../controllers/ReservationController';
+import reservationRoute from "./ReservationRoute";
 
 const userRoute = express.Router();
 
@@ -20,6 +21,12 @@ userRoute.post(
   '/:userId/reservation/create',
   validate(reservationValidator.createReservation),
   reservationController.saveReservation
+);
+
+userRoute.get(
+  '/:userId/reservations',
+  validate(reservationValidator.getReservations),
+  reservationController.getReservations
 );
 
 

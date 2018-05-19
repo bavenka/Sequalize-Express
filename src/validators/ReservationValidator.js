@@ -12,4 +12,9 @@ export default {
       phoneNumber: Joi.string().required(),
     }
   },
+  getReservations: {
+    params: {
+      userId: Joi.number().integer().min(1).required(),
+    }
+  }
 };

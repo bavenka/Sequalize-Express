@@ -10,3 +10,13 @@ export const saveReservation = (req, res, next) => {
       next(e)
     })
 };
+
+export const getReservations = (req, res, next) => {
+  const userId = req.params.userId;
+  reservationService
+    .getReservationsByUserId(userId)
+    .then(data => res.status(201).json(data))
+    .catch(e => {
+      next(e)
+    })
+};
