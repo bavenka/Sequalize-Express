@@ -1,5 +1,6 @@
 import connect from '../database/connect';
 import Role from './Role';
+import {OrderType} from "./enums/OrderType";
 
 const {
   sequelize,
@@ -23,6 +24,11 @@ const Reservation = sequelize.define('reservation', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  status: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: OrderType.IN_PROCESSING,
+  }
 }, {
   timestamps:false
 });

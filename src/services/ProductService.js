@@ -50,8 +50,10 @@ export const createProduct = async (product) => {
     return createdProduct;
   } catch (e) {
     if (e.name === 'SequelizeUniqueConstraintError') {
+      await transaction.rollback();
       throw new ErrorBase(ERROR_TYPES.PRODUCT_EXISTS, 409, `Product with name = ${product.name} already exists.`);
     } else {
+      await transaction.rollback();
       throw e;
     }
   }

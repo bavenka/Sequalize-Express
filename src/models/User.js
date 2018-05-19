@@ -1,5 +1,6 @@
 import connect from '../database/connect';
 import Role from './Role';
+import Reservation from './Reservation';
 
 const {
     sequelize,
@@ -26,5 +27,8 @@ const User = sequelize.define('user', {
 
 User.belongsToMany(Role, { as: 'Roles', through:'user_role', foreignKey: 'userId', timestamps: false });
 Role.belongsToMany(User, { as: 'Users', through:'user_role', foreignKey: 'roleId', timestamps: false });
+
+User.hasMany(Reservation, {as: 'reservations'});
+Reservation.belongsTo(User);
 
 export default User;
