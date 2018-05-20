@@ -23,6 +23,12 @@ userRoute.post(
   reservationController.saveReservation
 );
 
+userRoute.put(
+  '/:userId/reservation/update',
+  validate(reservationValidator.updateReservation),
+  reservationController.updateReservation
+);
+
 userRoute.get(
   '/:userId/reservations',
   validate(reservationValidator.getReservations),

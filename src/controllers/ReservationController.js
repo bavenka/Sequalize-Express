@@ -20,3 +20,13 @@ export const getReservations = (req, res, next) => {
       next(e)
     })
 };
+
+export const updateReservation = (req, res, next) => {
+  const userId = req.params.userId;
+  reservationService
+    .editReservation(userId, req.body)
+    .then(data => res.status(201).json(data))
+    .catch(e => {
+      next(e)
+    })
+};

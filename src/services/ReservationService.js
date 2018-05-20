@@ -64,8 +64,40 @@ export const getReservationsByUserId = async (userId) => {
     await transaction.rollback();
     throw e;
   }
+};
 
+export const editReservation = async (userId, reservationInfo) => {
+  const transaction = await sequelize.transaction();
 
+  try {
+    const user = await User.findOne({
+      where: {
+        id:userId,
+      },
+      transaction,
+    });
+
+    if (!user) {
+      throw new ErrorBase(ERROR_TYPES.USER_IS_NOT_EXISTS, 409, `User with id = ${userId} is not exists.`);
+    }
+
+    const updatedReservation = Reservation.update(
+      {status: reservationInfo.status},
+      {
+        returning: true,
+        where: {
+          id: reservationInfo.id,
+        }
+      }
+    );
+
+    await transaction.commit();
+    return updatedReservation;
+
+  } catch (e) {
+    await transaction.rollback();
+    throw e;
+  }
 };
 
 
