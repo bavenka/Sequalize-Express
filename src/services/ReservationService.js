@@ -100,4 +100,7 @@ export const editReservation = async (userId, reservationInfo) => {
   }
 };
 
+export const getAllReservations = () => Reservation.findAll();
+
+
 

@@ -7,7 +7,11 @@ import * as reservationController from '../controllers/ReservationController';
 
 const reservationRoute = express.Router();
 
-reservationRoute.post('/create', validate(reservationValidator.createReservation), reservationController.saveReservation);
+reservationRoute.get(
+    '/',
+    reservationController.getAllReservations
+  );
+
 
 
 export default reservationRoute;

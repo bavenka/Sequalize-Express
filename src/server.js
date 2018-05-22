@@ -27,6 +27,7 @@ app.use('/users', userRoute);
 app.use('/roles', roleRoute);
 app.use('/categories', categoryRoute);
 app.use('/products', productRoute);
+app.use('/reservations', reservationRoute);
 
 app.use((err, req, res, next) => {
     if (err instanceof ErrorBase) {

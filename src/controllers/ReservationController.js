@@ -30,3 +30,12 @@ export const updateReservation = (req, res, next) => {
       next(e)
     })
 };
+
+export const getAllReservations = (req, res, next) => {
+  reservationService
+      .getAllReservations()
+      .then(data => res.status(200).json(data))
+      .catch(e => {
+          next(e)
+      })
+};
