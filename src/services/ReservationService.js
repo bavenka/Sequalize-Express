@@ -3,6 +3,7 @@ import User from '../models/User';
 import {ERROR_TYPES} from "../server-error/constants";
 import ErrorBase from "../server-error";
 import connect from "../database/connect";
+import Product from "../models/Product";
 
 
 const {
@@ -82,7 +83,10 @@ export const editReservation = async (userId, reservationInfo) => {
     }
 
     const updatedReservation = Reservation.update(
-      {status: reservationInfo.status},
+      {  status: reservationInfo.status,
+        peopleCount: reservationInfo.peopleCount,
+        phoneNumber: reservationInfo.phoneNumber,
+      },
       {
         returning: true,
         where: {
@@ -98,6 +102,14 @@ export const editReservation = async (userId, reservationInfo) => {
     await transaction.rollback();
     throw e;
   }
+};
+
+export const deleteReservation = (id) => {
+  return Reservation.destroy({
+    where: {
+      id
+    }
+  })
 };
 
 export const getAllReservations = () => Reservation.findAll();

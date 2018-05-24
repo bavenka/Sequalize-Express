@@ -12,6 +12,11 @@ reservationRoute.get(
     reservationController.getAllReservations
   );
 
+reservationRoute.delete(
+  '/:reservationId',
+  reservationController.deleteReservation
+);
+
 
 
 export default reservationRoute;

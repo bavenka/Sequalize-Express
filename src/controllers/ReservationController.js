@@ -1,4 +1,5 @@
 import * as reservationService from '../services/ReservationService';
+import * as productService from "../services/ProductService";
 
 
 export const saveReservation = (req, res, next) => {
@@ -38,4 +39,14 @@ export const getAllReservations = (req, res, next) => {
       .catch(e => {
           next(e)
       })
+};
+
+export const deleteReservation = (req, res, next) => {
+  const reservationId = req.params.reservationId;
+  reservationService
+    .deleteReservation(reservationId)
+    .then(data => res.status(data ? 200 : 204).end())
+    .catch(e => {
+      next(e)
+    })
 };
