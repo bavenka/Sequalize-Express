@@ -8,6 +8,7 @@ import reservationValidator from '../validators/ReservationValidator';
 import { verifyToken  } from '../services/TokenService';
 import { verifyRole  } from '../services/RoleService';
 import * as userController from '../controllers/UserController';
+import * as cartController from '../controllers/CartController';
 import * as reservationController from '../controllers/ReservationController';
 import reservationRoute from "./ReservationRoute";
 
@@ -40,6 +41,11 @@ userRoute.put(
   '/:userId/edit',
   validate(userValidator.editUser),
   userController.updateUser
+);
+
+userRoute.post(
+  '/:userId/shoppingCart/products/:productId',
+  cartController.addProductToCart
 );
 
 userRoute.delete('/:userId/delete', validate(userValidator.deleteUser), userController.deleteUser);

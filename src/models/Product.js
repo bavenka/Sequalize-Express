@@ -1,5 +1,7 @@
 import connect from '../database/connect';
 import { ProductType } from './enums/ProductType';
+import Cart from "./Cart";
+import User from "./User";
 
 const {
     sequelize,
@@ -29,6 +31,9 @@ const Product = sequelize.define('product', {
         allowNull: false,
         defaultValue: ProductType.NEW,
     }
-}, { timestamps: false });   
+}, { timestamps: false });
+
+Product.hasMany(Cart, {as: 'carts'});
+Cart.belongsTo(Product);
 
 export default Product;

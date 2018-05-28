@@ -1,6 +1,4 @@
 import connect from '../database/connect';
-import User from './User';
-import Product from './Product';
 
 const {
   sequelize,
@@ -11,13 +9,14 @@ const Cart = sequelize.define('cart', {
   count: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0,
+    defaultValue: 1,
+  },
+  total: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
   },
 }, {
   timestamps:false
 });
-
-User.belongsToMany(Role, { as: 'Roles', through:'user_role', foreignKey: 'userId', timestamps: false });
-Role.belongsToMany(User, { as: 'Users', through:'user_role', foreignKey: 'roleId', timestamps: false });
 
 export default Cart;

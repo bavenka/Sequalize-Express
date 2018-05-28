@@ -13,19 +13,17 @@ const {
 } = connect;
 
 export const createProduct = async (product) => {
+  const transaction = await sequelize.transaction();
   try {
 
     let category = null;
 
     let {categoryName, ...existingProduct} = product;
 
-    const transaction = await sequelize.transaction();
-
     let createdProduct = await Product.create(
       existingProduct,
       {transaction},
     );
-
 
     if (categoryName === 'all') {
       await transaction.commit();
