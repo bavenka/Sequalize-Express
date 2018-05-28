@@ -3,7 +3,6 @@ import User from '../models/User';
 import {ERROR_TYPES} from "../server-error/constants";
 import ErrorBase from "../server-error";
 import connect from "../database/connect";
-import Product from "../models/Product";
 
 
 const {

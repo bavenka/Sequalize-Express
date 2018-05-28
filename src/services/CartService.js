@@ -63,3 +63,38 @@ export const addProductToCart = async (userId, productId) => {
     throw e;
   }
 };
+
+export const getCartProductsByUserId = async (userId) => {
+  const transaction = await sequelize.transaction();
+
+  try {
+    const user = await User.findOne({
+      where: {
+        id:userId,
+      },
+      transaction,
+    });
+
+    if (!user) {
+      throw new ErrorBase(ERROR_TYPES.USER_IS_NOT_EXISTS, 409, `User with id = ${userId} is not exists.`);
+    }
+
+    const products = await Product.findAll({
+      include: [{
+        model: Cart, as: 'carts',
+        include: [
+          {
+           model:User,
+          }
+        ]
+      }]
+    });
+
+    await transaction.commit();
+
+    return products
+  } catch (e) {
+    await transaction.rollback();
+    throw e;
+  }
+};

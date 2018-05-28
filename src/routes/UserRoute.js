@@ -48,6 +48,11 @@ userRoute.post(
   cartController.addProductToCart
 );
 
+userRoute.get(
+  '/:userId/shoppingCart',
+  cartController.getCartProductsByUserId
+);
+
 userRoute.delete('/:userId/delete', validate(userValidator.deleteUser), userController.deleteUser);
 
 export default userRoute;
