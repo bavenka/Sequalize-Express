@@ -14,7 +14,7 @@ export const addProductToCart = (req, res, next) => {
 export const getCartProductsByUserId = (req, res, next) => {
   const userId = req.params.userId;
   cartService
-    .getCartProductsByUserId(userId)
+    .getProductsByUserId(userId)
     .then(data => res.status(201).json(data))
     .catch(e => {
       next(e)

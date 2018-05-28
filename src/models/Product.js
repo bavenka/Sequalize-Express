@@ -33,7 +33,4 @@ const Product = sequelize.define('product', {
     }
 }, { timestamps: false });
 
-Product.hasMany(Cart, {as: 'carts'});
-Cart.belongsTo(Product);
-
 export default Product;

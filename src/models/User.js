@@ -1,7 +1,6 @@
 import connect from '../database/connect';
 import Role from './Role';
 import Reservation from './Reservation';
-import Cart from "./Cart";
 
 const {
     sequelize,
@@ -31,9 +30,5 @@ Role.belongsToMany(User, { as: 'Users', through:'user_role', foreignKey: 'roleId
 
 User.hasMany(Reservation, {as: 'reservations'});
 Reservation.belongsTo(User);
-
-User.hasMany(Cart, {as: 'carts'});
-Cart.belongsTo(User);
-
 
 export default User;
