@@ -108,12 +108,16 @@ export const removeProductFromCart = async (userId, productId) => {
       throw new ErrorBase(ERROR_TYPES.PRODUCT_IS_NOT_EXISTS, 409, `Product with id = ${productId} is not exists.`);
     }
 
-    Cart.destroy({
+    await Cart.destroy({
       where: {
         userId,
         productId,
-      }
-    })
+      },
+      transaction,
+    });
+
+    await transaction.commit();
+
   } catch (e) {
     await transaction.rollback();
     throw e;
@@ -121,7 +125,7 @@ export const removeProductFromCart = async (userId, productId) => {
 };
 
 export const clearProductsCart = async (userId) => {
-  Cart.destroy({
+  await Cart.destroy({
     where: {
       userId,
     }

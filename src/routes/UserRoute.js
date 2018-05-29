@@ -9,8 +9,8 @@ import { verifyToken  } from '../services/TokenService';
 import { verifyRole  } from '../services/RoleService';
 import * as userController from '../controllers/UserController';
 import * as cartController from '../controllers/CartController';
+import * as wishListController from '../controllers/WishListController';
 import * as reservationController from '../controllers/ReservationController';
-import reservationRoute from "./ReservationRoute";
 
 const userRoute = express.Router();
 
@@ -35,7 +35,6 @@ userRoute.get(
   validate(reservationValidator.getReservations),
   reservationController.getReservations
 );
-
 
 userRoute.put(
   '/:userId/edit',
@@ -62,6 +61,32 @@ userRoute.delete(
   '/:userId/shoppingCart/clear',
   cartController.clearProductsCart
 );
+
+userRoute.post(
+  '/:userId/wishList/products/:productId',
+  wishListController.addProductToWishList
+);
+
+userRoute.get(
+  '/:userId/wishList',
+  wishListController.getWishListByUserId
+);
+
+userRoute.delete(
+  '/:userId/wishList/products/:productId/delete',
+  wishListController.deleteProductFromWishList
+);
+
+userRoute.delete(
+  '/:userId/wishList/clear',
+  wishListController.clearWishList
+);
+
+userRoute.put(
+  '/:userId/wishList/products/:productId/move',
+  wishListController.moveProductToCartFromWishList
+);
+
 
 userRoute.delete('/:userId/delete', validate(userValidator.deleteUser), userController.deleteUser);
 
