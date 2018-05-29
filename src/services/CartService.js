@@ -118,5 +118,12 @@ export const removeProductFromCart = async (userId, productId) => {
     await transaction.rollback();
     throw e;
   }
+};
 
+export const clearProductsCart = async (userId) => {
+  Cart.destroy({
+    where: {
+      userId,
+    }
+  })
 };

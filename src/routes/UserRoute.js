@@ -58,6 +58,11 @@ userRoute.delete(
   cartController.deleteProductFromCart
 );
 
+userRoute.delete(
+  '/:userId/shoppingCart/clear',
+  cartController.clearProductsCart
+);
+
 userRoute.delete('/:userId/delete', validate(userValidator.deleteUser), userController.deleteUser);
 
 export default userRoute;

@@ -32,3 +32,14 @@ export const deleteProductFromCart = (req, res, next) => {
       next(e)
     })
 };
+
+export const clearProductsCart = (req, res, next) => {
+  const userId = req.params.userId;
+
+  cartService
+    .clearProductsCart(userId)
+    .then(data => res.status(data ? 200 : 204).end())
+    .catch(e => {
+      next(e)
+    })
+};
