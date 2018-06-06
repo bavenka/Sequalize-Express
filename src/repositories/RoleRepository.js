@@ -1,5 +1,6 @@
 import connect from '../database/connect';
 import Role from '../models/Role';
+import { deleteCategoryById} from './UserRepository';
 
 import ErrorBase from '../server-error';
 import {
