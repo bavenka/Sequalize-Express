@@ -112,7 +112,9 @@ export const removeProductFromWishList = async (userId, productId) => {
         productId,
       },
       transaction,
-    })
+    });
+    await transaction.commit();
+
   } catch (e) {
     await transaction.rollback();
     throw e;
@@ -167,9 +169,6 @@ export const moveProductToCart = async (userId, productId) => {
     }
 
     await user.addProduct(product, {
-      through: {
-        total: product.price,
-      },
       transaction
     });
 

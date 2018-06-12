@@ -4,24 +4,14 @@ import Product from "./Product";
 
 const {
   sequelize,
-  Sequelize
 } = connect;
 
-const Cart = sequelize.define('cart', {
-  count: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 1,
-  },
-  total: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-}, {
-  timestamps:false
-});
+const Cart = sequelize.define('cart', {},
+  {
+    timestamps: false
+  });
 
-User.belongsToMany(Product, { as: 'Products', through: Cart, foreignKey: 'userId', timestamps: false });
-Product.belongsToMany(User, { as: 'Users', through: Cart, foreignKey: 'productId', timestamps: false });
+User.belongsToMany(Product, {as: 'Products', through: Cart, foreignKey: 'userId', timestamps: false});
+Product.belongsToMany(User, {as: 'Users', through: Cart, foreignKey: 'productId', timestamps: false});
 
 export default Cart;

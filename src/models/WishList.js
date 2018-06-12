@@ -6,8 +6,7 @@ const {
   sequelize,
 } = connect;
 
-const WishList = sequelize.define('wish_list', {
-}, {
+const WishList = sequelize.define('wish_list', {},{
   timestamps:false
 });
 

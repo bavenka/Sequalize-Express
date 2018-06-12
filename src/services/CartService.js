@@ -48,9 +48,6 @@ export const addProductToCart = async (userId, productId) => {
     }
 
     const addedProduct = await user.addProduct(product, {
-      through: {
-        total: product.price,
-      },
       transaction
     });
 
