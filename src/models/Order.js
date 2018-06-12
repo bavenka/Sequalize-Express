@@ -17,7 +17,7 @@ const Order = sequelize.define('order', {
       },
 }, { timestamps: false });
 
-Order.hasMany(OrderProduct, {as: 'OrderProducts'})
+Order.hasMany(OrderProduct, {as: 'OrderProducts'});
 OrderProduct.belongsTo(Order);
 
 export default Order;

@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
 sequelize.authenticate()
     .then(() => {
         console.log('Connection has been established successfully.');
-        app.listen(4000, () => console.log('Express server is running.'));
+        app.listen(4002, () => console.log('Express server is running.'));
     })
     .then(() => initTables())
     .catch((err) => console.error('Unable to connect to the database:', err));

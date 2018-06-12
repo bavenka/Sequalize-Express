@@ -1,6 +1,8 @@
 import connect from '../database/connect';
 import Role from './Role';
 import {OrderType} from "./enums/OrderType";
+import Product from "./Product";
+import OrderProduct from "./OrderProduct";
 
 const {
   sequelize,
@@ -32,5 +34,9 @@ const Reservation = sequelize.define('reservation', {
 }, {
   timestamps:false
 });
+
+Reservation.hasMany(OrderProduct);
+
+OrderProduct.belongsTo(Reservation);
 
 export default Reservation;

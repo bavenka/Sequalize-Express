@@ -1,5 +1,4 @@
 import connect from '../database/connect';
-import Product from "./Product";
 
 const {
   sequelize,
@@ -22,8 +21,6 @@ const OrderProduct = sequelize.define('order_product', {
 }, {
   timestamps:false
 });
-
-OrderProduct.belongsTo(Product);
 
 
 export default OrderProduct;
