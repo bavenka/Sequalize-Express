@@ -46,7 +46,7 @@ export const deleteRole = (id) => {
 }
 
 export const getRoleByName = (name, transaction) => {
-  return Role.findOne({
+  return Role.findOrCreate({
     where: {
       name
     },
