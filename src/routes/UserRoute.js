@@ -11,6 +11,7 @@ import * as userController from '../controllers/UserController';
 import * as cartController from '../controllers/CartController';
 import * as wishListController from '../controllers/WishListController';
 import * as reservationController from '../controllers/ReservationController';
+import * as orderController from '../controllers/OrderController';
 
 const userRoute = express.Router();
 
@@ -85,6 +86,11 @@ userRoute.delete(
 userRoute.put(
   '/:userId/wishList/products/:productId/move',
   wishListController.moveProductToCartFromWishList
+);
+
+userRoute.post(
+  '/:userId/orderProducts',
+  orderController.orderProducts
 );
 
 
