@@ -5,30 +5,32 @@ import {ERROR_TYPES} from "../server-error/constants";
 import ErrorBase from "../server-error";
 
 export const signToken = (user, roles) => {
-    const { secret, options } = config.jwt;
+  const {secret, options} = config.jwt;
 
-    return jwt.sign({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        roles: roles.map(role => ({
-          id: role.id,
-          name: role.name,
-          permissions: role.permissions,
-        })),
-    }, secret, options);
+  return jwt.sign({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    address: user.address,
+    roles: roles.map(role => ({
+      id: role.id,
+      name: role.name,
+      permissions: role.permissions,
+    })),
+  }, secret, options);
 };
 
 export const verifyToken = (req, res, next) => {
-  const { secret } = config.jwt;
+  const {secret} = config.jwt;
   const token = req.headers['token'];
 
   return jwt.verify(token, secret,
-    (e, encoded)=> {
-      if(e) {
+    (e, encoded) => {
+      if (e) {
         throw new ErrorBase(ERROR_TYPES.AUTH_ERROR, 401, e.message);
       }
-      const { roles } = encoded;
+      const {roles} = encoded;
       req.roles = roles;
       next();
     })
