@@ -4,6 +4,7 @@ import Order from '../models/Order';
 import ErrorBase from "../server-error";
 import {ERROR_TYPES} from "../server-error/constants";
 import connect from "../database/connect";
+import Cart from "../models/Cart";
 
 const {
   sequelize,
@@ -40,6 +41,13 @@ export const orderProducts = async (userId, orderInfo) => {
       orderId: order.id,
     })),
       { returning: true, transaction });
+
+    await Cart.destroy({
+      where: {
+        userId,
+      },
+      transaction,
+    });
 
     await transaction.commit();
     return orderProducts;
