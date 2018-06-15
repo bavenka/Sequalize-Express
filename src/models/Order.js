@@ -16,7 +16,10 @@ const Order = sequelize.define('order', {
   date: {
     type: Sequelize.DATE,
     allowNull: false,
-    defaultValue: new Date(),
+  },
+  time: {
+    type: Sequelize.DATE,
+    allowNull: false,
   },
   address: {
     type: Sequelize.STRING,

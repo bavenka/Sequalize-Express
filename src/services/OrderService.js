@@ -9,7 +9,7 @@ const {
   sequelize,
 } = connect;
 
-export const orderProducts = async (userId, products) => {
+export const orderProducts = async (userId, orderInfo) => {
   const transaction = await sequelize.transaction();
   try {
     const user = await User.findOne({
@@ -23,7 +23,11 @@ export const orderProducts = async (userId, products) => {
       throw new ErrorBase(ERROR_TYPES.USER_IS_NOT_EXISTS, 409, `User with id = ${userId} is not exists.`);
     }
 
-    const order = await Order.create({}, { transaction });
+    const { date, time, address, phoneNumber, name, email, products } = orderInfo;
+
+    const order = await Order.create({
+      date, time, address, phoneNumber, name, email,
+    }, { transaction });
 
     await user.addOrder(order, {
       transaction,
