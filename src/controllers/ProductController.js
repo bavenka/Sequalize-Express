@@ -39,3 +39,12 @@ export const getAllProducts = (req, res, next) => {
             next(e)
         })
 };
+
+export const getPopularProducts = (req, res, next) => {
+  const { limit } = req.query;
+  productService.getPopularProducts(limit)
+    .then(data => res.status(200).json(data))
+    .catch(e => {
+      next(e)
+    })
+};

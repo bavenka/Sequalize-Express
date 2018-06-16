@@ -6,10 +6,11 @@ import ErrorBase from '../server-error';
 import {
   ERROR_TYPES
 } from '../server-error/constants';
+import OrderProduct from "../models/OrderProduct";
 
 const {
+  Sequelize,
   sequelize,
-  Sequelize
 } = connect;
 
 export const createProduct = async (product) => {
@@ -79,10 +80,35 @@ export const deleteProduct = (id) => {
       id
     }
   })
-}
+};
 
 export const getAllProducts = (offset, limit) => Product.findAndCountAll({
   offset,
   limit
 });
+
+export const getPopularProducts = async (limit) => {
+  const Op = Sequelize.Op;
+  try {
+    const orderProducts = await OrderProduct.findAll({
+      attributes: ['productId'],
+      group: ['productId'],
+      order: [[sequelize.fn('SUM', sequelize.col('quantity')), 'DESC']],
+      limit,
+    });
+
+    const productsIds = await orderProducts.map(product => product.productId);
+
+    return Product.findAll({
+      where: {
+        id: {
+          [Op.in]: [...productsIds],
+        }
+      },
+    });
+
+  } catch (e) {
+    throw e;
+  }
+};
 

@@ -15,4 +15,6 @@ productRoute.delete('/:productId/delete', validate(productValidator.deleteProduc
 
 productRoute.get('/', productController.getAllProducts);
 
+productRoute.get('/popular', productController.getPopularProducts);
+
 export default productRoute;
