@@ -60,13 +60,11 @@ export const orderProducts = async (userId, orderInfo) => {
 };
 
 export const getOrdersByUserId = async (userId) => {
-  const transaction = await sequelize.transaction();
   try {
     const user = await User.findOne({
       where: {
         id: userId,
       },
-      transaction,
     });
 
     if (!user) {
