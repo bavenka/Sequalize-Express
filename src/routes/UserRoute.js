@@ -93,6 +93,10 @@ userRoute.post(
   orderController.orderProducts
 );
 
+userRoute.get(
+  '/:userId/orders',
+  orderController.getOrdersByUserId
+);
 
 userRoute.delete('/:userId/delete', validate(userValidator.deleteUser), userController.deleteUser);
 
