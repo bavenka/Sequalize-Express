@@ -25,23 +25,23 @@ export const orderProducts = async (userId, orderInfo) => {
       throw new ErrorBase(ERROR_TYPES.USER_IS_NOT_EXISTS, 409, `User with id = ${userId} is not exists.`);
     }
 
-    const { date, time, address, phoneNumber, name, email, products } = orderInfo;
+    const {date, time, address, phoneNumber, name, email, products} = orderInfo;
 
     const order = await Order.create({
       date, time, address, phoneNumber, name, email,
-    }, { transaction });
+    }, {transaction});
 
     await user.addOrder(order, {
       transaction,
     });
 
     const orderProducts = await OrderProduct.bulkCreate(products.map(product => ({
-      quantity: product.quantity,
-      totalPrice: product.totalPrice,
-      productId: product.id,
-      orderId: order.id,
-    })),
-      { returning: true, transaction });
+        quantity: product.quantity,
+        totalPrice: product.totalPrice,
+        productId: product.id,
+        orderId: order.id,
+      })),
+      {returning: true, transaction});
 
     await Cart.destroy({
       where: {
@@ -87,3 +87,31 @@ export const getOrdersByUserId = async (userId) => {
     throw e;
   }
 };
+
+export const getAllOrders = async () =>
+  Order.findAll({
+    include: [
+      {
+        model: OrderProduct,
+        as: 'OrderProducts',
+        include: [Product],
+        required: true,
+      }
+    ]
+  });
+
+export const updateOrderById = async (orderId, date, time, status) =>
+  Order.update({
+      date,
+      time,
+      status,
+    },
+    {
+      returning: true,
+      where: {
+        id: orderId,
+      }
+    });
+
+
+

@@ -14,6 +14,7 @@ import roleRoute from './routes/RoleRoute';
 import categoryRoute from './routes/CategoryRoute';
 import productRoute from './routes/ProductRoute';
 import reservationRoute from './routes/ReservationRoute';
+import orderRoute from './routes/OrderRoute';
 
 import ErrorBase from './server-error';
 
@@ -28,6 +29,7 @@ app.use('/roles', roleRoute);
 app.use('/categories', categoryRoute);
 app.use('/products', productRoute);
 app.use('/reservations', reservationRoute);
+app.use('/orders', orderRoute);
 
 app.use((err, req, res, next) => {
     if (err instanceof ErrorBase) {
